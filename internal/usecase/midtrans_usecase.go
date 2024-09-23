@@ -24,7 +24,7 @@ func NewMidtransUseCase(resellerRepo *repository.ResellerRepository, serverKey s
 }
 
 func (u *MidtransUseCase) ValidateCallback(callback domain.MidtransCallback) error {
-	signature := fmt.Sprintf("%s%s%s%s", callback.OrderID, callback.TransactionStatus, callback.GrossAmount, u.serverKey)
+	signature := fmt.Sprintf("%s%s%s%s", callback.OrderID, callback.StatusCode, callback.GrossAmount, u.serverKey)
 	hash := sha512.Sum512([]byte(signature))
 	if hex.EncodeToString(hash[:]) != callback.SignatureKey {
 		return fmt.Errorf("invalid signature")
