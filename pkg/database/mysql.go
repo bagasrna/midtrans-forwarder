@@ -21,7 +21,8 @@ func NewDatabase(cfg MySQLConfig) *sql.DB {
 	password := cfg.Password
 	host := cfg.Host
 	port := cfg.Port
-	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)", username, password, host, port)
+	dbName := cfg.DBName
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", username, password, host, port, dbName)
 	db, err := sql.Open("mysql", dsn)
 	if err != nil {
 		log.Fatal(err)

@@ -11,7 +11,14 @@ import (
 	"midtrans-forwarder/pkg/redis"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/joho/godotenv"
 )
+
+func init() {
+	if err := godotenv.Load(); err != nil {
+		log.Fatal(err)
+	}
+}
 
 func main() {
 	app := fiber.New()
@@ -30,5 +37,5 @@ func main() {
 	handler.NewResellerHandler(resellerUseCase, app)
 	handler.NewMidtransHandler(midtransUseCase, app)
 
-	log.Fatal(app.Listen(":8080"))
+	log.Fatal(app.Listen(":" + cfg.AppPort))
 }

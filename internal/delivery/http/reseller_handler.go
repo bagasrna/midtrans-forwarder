@@ -18,11 +18,11 @@ func NewResellerHandler(resellerUseCase *usecase.ResellerUseCase, app *fiber.App
 }
 
 func (h *ResellerHandler) RegisterResellerRoutes(app *fiber.App) {
-    app.Post("/resellers", h.CreateReseller)
-    app.Get("/resellers/:id", h.GetResellerByID)
+    app.Post("/reseller", h.CreateReseller)
+    app.Get("/reseller/:id", h.GetResellerByID)
     app.Get("/resellers", h.GetAllResellers)
-    app.Put("/resellers/:id", h.UpdateReseller)
-    app.Delete("/resellers/:id", h.DeleteReseller)
+    app.Put("/reseller/:id", h.UpdateReseller)
+    app.Delete("/reseller/:id", h.DeleteReseller)
 }
 
 func (h *ResellerHandler) CreateReseller(c *fiber.Ctx) error {

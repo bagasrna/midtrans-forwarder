@@ -25,6 +25,8 @@ func (h *MidtransHandler) SetupMidtransRoutes(app *fiber.App) {
 
 func (h *MidtransHandler) HandleMidtransCallback(c *fiber.Ctx) error {
 	var callback domain.MidtransCallback
+	rawBody := c.Body()
+
 	if err := c.BodyParser(&callback); err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid request body"})
 	}
@@ -33,7 +35,7 @@ func (h *MidtransHandler) HandleMidtransCallback(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"error": "Invalid signature"})
 	}
 
-	if err := h.midtransUseCase.ForwardToReseller(c.Context(), callback); err != nil {
+	if err := h.midtransUseCase.ForwardToReseller(c.Context(), callback, rawBody); err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to forward request"})
 	}
 

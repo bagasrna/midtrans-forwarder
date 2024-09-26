@@ -8,9 +8,10 @@ import (
 )
 
 type Config struct {
-	DBConfig         database.MySQLConfig
-	RedisConfig      redis.RedisConfig
+	DBConfig          database.MySQLConfig
+	RedisConfig       redis.RedisConfig
 	MidtransServerKey string
+	AppPort           string
 }
 
 func Load() Config {
@@ -26,8 +27,9 @@ func Load() Config {
 			Addr:     os.Getenv("REDIS_ADDR"),
 			Password: os.Getenv("REDIS_PASSWORD"),
 			DB:       0,
-			Port: os.Getenv("REDIS_PORT"),
+			Port:     os.Getenv("REDIS_PORT"),
 		},
 		MidtransServerKey: os.Getenv("MIDTRANS_SERVER_KEY"),
+		AppPort:           os.Getenv("APP_PORT"),
 	}
 }
